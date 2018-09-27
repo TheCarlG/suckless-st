@@ -4,9 +4,11 @@
  * appearance
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+ * borderperc: percentage of cell width to use as a border
+ *		0 = no border, 100 = border width is same as cell width
  */
 static char *font = "Source Code Pro for Powerline:pixelsize=9:antialias=true:autohint=false";
-static int borderpx = 2;
+static int borderperc = 20;
 
 /* disable bold, italic and roman fonts globally */
 int disablebold = 0;
