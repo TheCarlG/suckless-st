@@ -7,6 +7,10 @@ VERSION = 0.8.1
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
+APPBUNDLE = ST.app
+
+OS = $(shell uname -s)
+
 X11INC = /usr/X11R6/include
 X11LIB = /usr/X11R6/lib
 
@@ -14,7 +18,7 @@ X11LIB = /usr/X11R6/lib
 INCS = -I$(X11INC) \
        `pkg-config --cflags fontconfig` \
        `pkg-config --cflags freetype2`
-LIBS = -L$(X11LIB) -lm -lX11 -lutil -lXft \
+LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft \
        `pkg-config --libs fontconfig` \
        `pkg-config --libs freetype2`
 
@@ -23,11 +27,12 @@ CPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600
 STCFLAGS = $(INCS) $(CPPFLAGS) $(CFLAGS)
 STLDFLAGS = $(LIBS) $(LDFLAGS)
 
-# OpenBSD:
-#CPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600 -D_BSD_SOURCE
-#LIBS = -L$(X11LIB) -lm -lX11 -lutil -lXft \
-#       `pkg-config --libs fontconfig` \
-#       `pkg-config --libs freetype2`
-
+ifneq ($(OS), Linux)
+# Asume OpenBSD:
+CPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600 -D_BSD_SOURCE
+LIBS = -L$(X11LIB) -lm -lX11 -lutil -lXft \
+       `pkg-config --libs fontconfig` \
+       `pkg-config --libs freetype2`
+endif
 # compiler and linker
 # CC = c99

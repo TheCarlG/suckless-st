@@ -7,6 +7,8 @@ include config.mk
 SRC = st.c x.c
 OBJ = $(SRC:.c=.o)
 
+
+
 all: options st
 
 options:
@@ -28,8 +30,15 @@ $(OBJ): config.h config.mk
 
 st: $(OBJ)
 	$(CC) -o $@ $(OBJ) $(STLDFLAGS)
+	if [ "$(OS)" == "Darwin" ]; then \
+		mkdir -p ./$(APPBUNDLE)/Contents/{MacOS,Resources}; \
+		cp ./st ./$(APPBUNDLE)/Contents/MacOS/st; \
+		cp ./st.icns ./$(APPBUNDLE)/Contents/Resources/st.icns; \
+		sed "s/VERSION/$(VERSION)/" < Info.plist.tmpl > ./$(APPBUNDLE)/Contents/Info.plist; \
+	fi
 
 clean:
+	if [ -d "$(APPBUNDLE)" ]; then rm -r $(APPBUNDLE); fi
 	rm -f st $(OBJ) st-$(VERSION).tar.gz
 
 dist: clean
@@ -41,17 +50,26 @@ dist: clean
 	rm -rf st-$(VERSION)
 
 install: st
-	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	cp -f st $(DESTDIR)$(PREFIX)/bin
-	chmod 755 $(DESTDIR)$(PREFIX)/bin/st
-	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
-	sed "s/VERSION/$(VERSION)/g" < st.1 > $(DESTDIR)$(MANPREFIX)/man1/st.1
-	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
+	if [ "$(OS)" == "Darwin" ]; then \
+		cp -r $(APPBUNDLE) /Applications/$(APPBUNDLE); \
+	else \
+		mkdir -p $(DESTDIR)$(PREFIX)/bin; \
+		cp -f st $(DESTDIR)$(PREFIX)/bin; \
+		chmod 755 $(DESTDIR)$(PREFIX)/bin/st; \
+	fi
+	mkdir -p $(DESTDIR)$(MANPREFIX)/man1;
+	sed "s/VERSION/$(VERSION)/g" < st.1 > $(DESTDIR)$(MANPREFIX)/man1/st.1;
+	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1;
+	@echo Please see the README file regarding the terminfo entry of st.;
 	tic -sx st.info
-	@echo Please see the README file regarding the terminfo entry of st.
 
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/st
+	if [ "$(OS)" == "Darwin" ]; then \
+		rm -rf /Applications/$(APPBUNDLE); \
+	else \
+		rm -f $(DESTDIR)$(PREFIX)/bin/st; \
+	fi
+
 	rm -f $(DESTDIR)$(MANPREFIX)/man1/st.1
 
 .PHONY: all options clean dist install uninstall
