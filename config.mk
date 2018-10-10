@@ -11,8 +11,13 @@ APPBUNDLE = ST.app
 
 OS = $(shell uname -s)
 
+ifeq ($(OS), Darwin)
+X11INC = /opt/X11/include
+X11LIB = /opt/X11/lib
+else
 X11INC = /usr/X11R6/include
 X11LIB = /usr/X11R6/lib
+endif
 
 # includes and libs
 INCS = -I$(X11INC) \
