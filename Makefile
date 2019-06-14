@@ -26,22 +26,10 @@ x.o: arg.h config.h st.h win.h
 
 $(OBJ): config.h config.mk
 
-ifeq ($(OS), Darwin)
-all: st $(APPBUNDLE)
-
-$(APPBUNDLE):
-	test -d $(APPBUNDLE) && rm -r $(APPBUNDLE); \
-	mkdir -p ./$(APPBUNDLE)/Contents/{MacOS,Resources}
-	cp ./st ./$(APPBUNDLE)/Contents/MacOS/st
-	cp ./st.icns ./$(APPBUNDLE)/Contents/Resources/st.icns
-	sed "s/VERSION/$(VERSION)/" < Info.plist.tmpl > ./$(APPBUNDLE)/Contents/Info.plist
-endif
-
 st: $(OBJ)
 	$(CC) -o $@ $(OBJ) $(STLDFLAGS)
 
 clean:
-	test -d $(APPBUNDLE) && rm -r $(APPBUNDLE); \
 	rm -f st $(OBJ) st-$(VERSION).tar.gz
 
 dist: clean
@@ -52,9 +40,7 @@ dist: clean
 	tar -cf - st-$(VERSION) | gzip > st-$(VERSION).tar.gz
 	rm -rf st-$(VERSION)
 
-install: st $(APPBUNDLE)
-	test -d /Applications/$(APPBUNDLE) && rm -rf /Applications/$(APPBUNDLE); \
-	test -d $(APPBUNDLE) && cp -r $(APPBUNDLE) /Applications/$(APPBUNDLE) || echo "$(APPBUNDLE) not found"
+install: st
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f st $(DESTDIR)$(PREFIX)/bin
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/st
@@ -66,10 +52,6 @@ install: st $(APPBUNDLE)
 
 .PHONY: uninstall
 uninstall:
-	if [ "$(OS)" == "Darwin" ]; then \
-		rm -rf /Applications/$(APPBUNDLE); \
-	fi
-
 	rm -f $(DESTDIR)$(PREFIX)/bin/st
 	rm -f $(DESTDIR)$(MANPREFIX)/man1/st.1
 

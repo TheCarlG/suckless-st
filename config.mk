@@ -7,8 +7,6 @@ VERSION = 0.8.2
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
 
-APPBUNDLE = ST.app
-
 OS = $(shell uname -s)
 
 ifeq ($(OS), Darwin)
