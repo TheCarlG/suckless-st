@@ -7,7 +7,7 @@
  * borderperc: percentage of cell width to use as a border
  *		0 = no border, 100 = border width is same as cell width
  */
-static char *font = "Source Code Pro for Powerline:pixelsize=9:weight:9:antialias=true:autohint=true:scalable=true";
+static char *font = "Source Code Pro:pixelsize=9:antialias=true:autohint=true";
 static int borderperc = 20;
 
 /* disable bold, italic and roman fonts globally */
@@ -23,7 +23,7 @@ int disableroman = 0;
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/zsh --login";
+static char *shell = "/bin/zsh";
 char *utmp = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
@@ -49,7 +49,7 @@ static unsigned int tripleclicktimeout = 600;
 int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
-static unsigned int xfps = 120;
+static unsigned int xfps = 100;
 static unsigned int actionfps = 30;
 
 /*
@@ -71,6 +71,7 @@ static int bellvolume = 0;
 
 /* default TERM value */
 char *termname = "xterm-256color-italic";
+//char *termname = "st-256color";
 
 /*
  * spaces per tab
@@ -90,40 +91,10 @@ char *termname = "xterm-256color-italic";
 unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
-// GruvBox Dark
-static const char *colorname[] = {
-	[0]   = "#191919",  /* black */
-	[1]   = "#cc241d",  /* red */
-	[2]   = "#98971a",  /* gren */
-	[3]   = "#d79921",  /* yellow */
-	[4]   = "#458588",  /* blue */
-	[5]   = "#b16286",  /* magenta */
-	[6]   = "#689d6a",  /* cyan */
-	[7]   = "#a89984",  /* white */
 
-	[8]   = "#928374",  /* black */
-	[9]   = "#fb4934",   /* red */
-	[10]  = "#b8bb26",  /* green */
-	[11]  = "#fabd2f",  /* yellow */
-	[12]  = "#83a598",  /* blue */
-	[13]  = "#d3869b",  /* magenta */
-	[14]  = "#8ec07c",  /* cyan */
-	[15]  = "#ebdbb2",  /* white */
+//#include "colorscheme.gruvbox-dark.h"
+#include "colorscheme.gruvbox-light2.h"
 
-	[256] = "#191919", /* background */
-	[257] = "#ebdbb2", /* foreground */
-};
-
-
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-// # hard contrast: background = '0x1d2021'
-unsigned int defaultfg = 257;
-unsigned int defaultbg = 256;
-static unsigned int defaultcs = 257;
-static unsigned int defaultrcs = 257;
 
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
@@ -151,7 +122,8 @@ static unsigned int rows = 48;
 /*
  * Default colour and shape of the mouse cursor
  */
-static unsigned int mouseshape = XC_xterm;
+//static unsigned int mouseshape = XC_xterm;
+static unsigned int mouseshape = XC_left_ptr;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
 
