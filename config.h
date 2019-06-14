@@ -7,7 +7,7 @@
  * borderperc: percentage of cell width to use as a border
  *		0 = no border, 100 = border width is same as cell width
  */
-static char *font = "Source Code Pro for Powerline:pixelsize=9:antialias=true:autohint=true";
+static char *font = "Source Code Pro for Powerline:pixelsize=9:weight:9:antialias=true:autohint=true:scalable=true";
 static int borderperc = 20;
 
 /* disable bold, italic and roman fonts globally */
