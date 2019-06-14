@@ -49,7 +49,7 @@ static unsigned int tripleclicktimeout = 600;
 int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
-static unsigned int xfps = 100;
+static unsigned int xfps = 120;
 static unsigned int actionfps = 30;
 
 /*
@@ -92,9 +92,8 @@ unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 
-//#include "colorscheme.gruvbox-dark.h"
-#include "colorscheme.gruvbox-light2.h"
-
+//#include "colorschemes/base16-gruvbox-light-medium-theme.h"
+#include "colorschemes/base16-gruvbox-Dark-medium-theme.h"
 
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
