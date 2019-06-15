@@ -93,7 +93,7 @@ unsigned int tabspaces = 4;
 /* Terminal colors (16 first used in escape sequence) */
 
 //#include "colorschemes/base16-gruvbox-light-medium-theme.h"
-#include "colorschemes/base16-gruvbox-Dark-medium-theme.h"
+#include "colorschemes/base16-gruvbox-dark-medium-theme.h"
 
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
