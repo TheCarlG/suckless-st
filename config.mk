@@ -19,6 +19,8 @@ endif
 
 PKG_CONFIG = pkg-config
 
+PKG_CONFIG = pkg-config
+
 # includes and libs
 INCS = -I$(X11INC) \
        `$(PKG_CONFIG) --cflags fontconfig` \
